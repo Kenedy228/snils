@@ -1,10 +1,7 @@
 package snils
 
 const (
-	SNILSLength    int    = 11
-	ForbiddenValue string = "00000000000"
-)
-
-var (
-	delimiters = []rune{'-'}
+	SNILSLength          = 11
+	ForbiddenSNILS       = "00000000000"
+	MinNumberForChecksum = 1001998
 )
