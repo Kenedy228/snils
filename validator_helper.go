@@ -50,5 +50,36 @@ func shouldValidateChecksum(snils string) bool {
 }
 
 func validateChecksum(snils string) error {
+	numericPart := snils[:9]
+	checksumPart := snils[9:]
+
+	var checksum int64
+
+	for i, w := range snilsChecksumWeights {
+		d := int(numericPart[i] - '0')
+		checksum += int64(d * w)
+	}
+
+	var controlNumber int64
+
+	if checksum < 100 {
+		controlNumber = checksum
+	} else if checksum == 100 {
+		controlNumber = 0
+	} else {
+		remainder := checksum % 101
+		if remainder == 100 {
+			controlNumber = 0
+		} else {
+			controlNumber = remainder
+		}
+	}
+
+	conv, _ := strconv.ParseInt(checksumPart, 10, 64)
+
+	if conv != controlNumber {
+		return fmt.Errorf("")
+	}
+
 	return nil
 }
