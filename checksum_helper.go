@@ -10,3 +10,20 @@ func calculateWeightedSum(numberPart string) int {
 
 	return sum
 }
+
+func calculateControlNumber(weightedSum int) int {
+	if weightedSum < 100 {
+		return weightedSum
+	}
+
+	if weightedSum == 100 {
+		return 0
+	}
+
+	remainder := weightedSum % 101
+	if remainder == 100 {
+		return 0
+	}
+
+	return remainder
+}
