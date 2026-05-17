@@ -37,12 +37,12 @@ func validateForbiddenSNILS(snils string) error {
 }
 
 func shouldValidateChecksum(snils string) bool {
-	conv, err := strconv.ParseInt(snils, 10, 64)
+	number, err := strconv.Atoi(snils)
 	if err != nil {
 		panic("")
 	}
 
-	if conv > MinNumberForChecksum {
+	if number > MinNumberForChecksum {
 		return true
 	}
 
