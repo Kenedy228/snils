@@ -98,3 +98,43 @@ func Test_calculateControlNumber(t *testing.T) {
 		})
 	}
 }
+
+func Test_parseControlNumber(t *testing.T) {
+	type args struct {
+		controlPart string
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{
+			name: "валидное число",
+			args: args{
+				controlPart: "95",
+			},
+			want: 95,
+		},
+		{
+			name: "число с незначащими пробелами",
+			args: args{
+				controlPart: "001",
+			},
+			want: 1,
+		},
+		{
+			name: "отрицательное число",
+			args: args{
+				controlPart: "-101",
+			},
+			want: -101,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := parseControlNumber(tt.args.controlPart); got != tt.want {
+				t.Errorf("parseControlNumber() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
