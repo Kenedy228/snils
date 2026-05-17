@@ -1,5 +1,7 @@
 package snils
 
+import "strconv"
+
 func calculateWeightedSum(numberPart string) int {
 	sum := 0
 
@@ -26,4 +28,13 @@ func calculateControlNumber(weightedSum int) int {
 	}
 
 	return remainder
+}
+
+func parseControlNumber(controlPart string) int {
+	parsed, err := strconv.Atoi(controlPart)
+	if err != nil {
+		panic("")
+	}
+
+	return parsed
 }
