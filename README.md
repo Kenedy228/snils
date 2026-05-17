@@ -1,7 +1,7 @@
 # snils
 
 [![Go Version](https://img.shields.io/badge/go-1.26.2-00ADD8.svg)](https://go.dev)
-[![CI](https://github.com/Kenedy228/snils/actions/workflows/ci.yml/badge.svg)](https://github.com/Kenedy228/snils/actions/workflows/ci.yml)
+[![CI](https://github.com/Kenedy228/snils/actions/workflows/go.yml/badge.svg)](https://github.com/Kenedy228/snils/actions/workflows/ci.yml)
 [![License](https://img.shields.io/github/license/Kenedy228/snils)](LICENSE)
 [![Go Reference](https://pkg.go.dev/badge/github.com/Kenedy228/snils.svg)](https://pkg.go.dev/github.com/Kenedy228/snils)
 
