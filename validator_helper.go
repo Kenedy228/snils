@@ -2,6 +2,7 @@ package snils
 
 import (
 	"fmt"
+	"strconv"
 	"unicode/utf8"
 )
 
@@ -33,4 +34,17 @@ func validateForbiddenSNILS(snils string) error {
 	}
 
 	return nil
+}
+
+func shouldValidateChecksum(snils string) bool {
+	conv, err := strconv.ParseInt(snils, 10, 64)
+	if err != nil {
+		panic("")
+	}
+
+	if conv > MinNumberForChecksum {
+		return true
+	}
+
+	return false
 }
