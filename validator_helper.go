@@ -48,3 +48,7 @@ func shouldValidateChecksum(snils string) bool {
 
 	return false
 }
+
+func validateChecksum(snils string) error {
+	return nil
+}
