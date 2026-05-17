@@ -2,7 +2,6 @@ package snils
 
 import (
 	"fmt"
-	"strconv"
 	"unicode/utf8"
 )
 
@@ -22,6 +21,14 @@ func validateDigitsOnly(snils string) error {
 			continue
 		}
 
+		return fmt.Errorf("")
+	}
+
+	return nil
+}
+
+func validateForbiddenSNILS(snils string) error {
+	if snils == ForbiddenSNILS {
 		return fmt.Errorf("")
 	}
 
