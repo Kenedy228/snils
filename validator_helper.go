@@ -37,7 +37,9 @@ func validateForbiddenSNILS(snils string) error {
 }
 
 func shouldValidateChecksum(snils string) bool {
-	number, err := strconv.Atoi(snils)
+	numberPart := snils[:9]
+	number, err := strconv.Atoi(numberPart)
+
 	if err != nil {
 		panic("")
 	}

@@ -130,21 +130,21 @@ func Test_shouldValidateChecksum(t *testing.T) {
 		{
 			name: "минимум",
 			args: args{
-				snils: "001001998",
+				snils: "00100199899",
 			},
 			want: false,
 		},
 		{
 			name: "меньше минимума",
 			args: args{
-				snils: "001001997",
+				snils: "00100199799",
 			},
 			want: false,
 		},
 		{
 			name: "больше минимума",
 			args: args{
-				snils: "001001999",
+				snils: "00100199999",
 			},
 			want: true,
 		},
