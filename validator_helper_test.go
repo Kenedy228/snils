@@ -117,3 +117,43 @@ func Test_validateForbiddenSNILS(t *testing.T) {
 		})
 	}
 }
+
+func Test_shouldValidateChecksum(t *testing.T) {
+	type args struct {
+		snils string
+	}
+	tests := []struct {
+		name string
+		args args
+		want bool
+	}{
+		{
+			name: "минимум",
+			args: args{
+				snils: "001001998",
+			},
+			want: false,
+		},
+		{
+			name: "меньше минимума",
+			args: args{
+				snils: "001001997",
+			},
+			want: false,
+		},
+		{
+			name: "больше минимума",
+			args: args{
+				snils: "001001999",
+			},
+			want: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := shouldValidateChecksum(tt.args.snils); got != tt.want {
+				t.Errorf("shouldValidateChecksum() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
