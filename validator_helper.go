@@ -7,8 +7,10 @@ import (
 )
 
 func validateLength(snils string) error {
-	if utf8.RuneCountInString(snils) != SNILSLength {
-		return fmt.Errorf("")
+	rc := utf8.RuneCountInString(snils)
+
+	if rc != SNILSLength {
+		return fmt.Errorf("%w: длина %d символов, ожидалось %d", ErrInvalidLength, rc, SNILSLength)
 	}
 
 	return nil
@@ -22,7 +24,7 @@ func validateDigitsOnly(snils string) error {
 			continue
 		}
 
-		return fmt.Errorf("")
+		return fmt.Errorf("%w: запрещенный символ %q, разрешены только цифры", ErrInvalidContent, string(r))
 	}
 
 	return nil
@@ -30,7 +32,7 @@ func validateDigitsOnly(snils string) error {
 
 func validateForbiddenSNILS(snils string) error {
 	if snils == ForbiddenSNILS {
-		return fmt.Errorf("")
+		return fmt.Errorf("%w", ErrForbiddenSNILS)
 	}
 
 	return nil
@@ -41,7 +43,7 @@ func shouldValidateChecksum(snils string) bool {
 	number, err := strconv.Atoi(numberPart)
 
 	if err != nil {
-		panic("")
+		panic("числовая часть СНИЛС должна состоять только из цифр")
 	}
 
 	if number > MinNumberForChecksum {
@@ -62,7 +64,7 @@ func validateChecksum(snils string) error {
 	actualControlNumber := parseControlNumber(controlPart)
 
 	if actualControlNumber != expectedControlNumber {
-		return fmt.Errorf("")
+		return fmt.Errorf("%w: ожидалось %02d, получено %02d", ErrInvalidChecksum, expectedControlNumber, actualControlNumber)
 	}
 
 	return nil

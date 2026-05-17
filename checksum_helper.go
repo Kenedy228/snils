@@ -33,7 +33,7 @@ func calculateControlNumber(weightedSum int) int {
 func parseControlNumber(controlPart string) int {
 	parsed, err := strconv.Atoi(controlPart)
 	if err != nil {
-		panic("")
+		panic("контрольная часть СНИЛС должна состоять только из цифр")
 	}
 
 	return parsed
