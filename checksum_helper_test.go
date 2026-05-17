@@ -61,7 +61,34 @@ func Test_calculateControlNumber(t *testing.T) {
 		args args
 		want int
 	}{
-		// TODO: Add test cases.
+		{
+			name: "сумма < 100",
+			args: args{
+				weightedSum: 1,
+			},
+			want: 1,
+		},
+		{
+			name: "сумма = 100",
+			args: args{
+				weightedSum: 100,
+			},
+			want: 0,
+		},
+		{
+			name: "сумма > 100, но остаток < 100",
+			args: args{
+				weightedSum: 101,
+			},
+			want: 0,
+		},
+		{
+			name: "сумма > 100, остаток == 100",
+			args: args{
+				weightedSum: 201,
+			},
+			want: 0,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
