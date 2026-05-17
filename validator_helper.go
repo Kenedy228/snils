@@ -2,6 +2,7 @@ package snils
 
 import (
 	"fmt"
+	"strconv"
 	"unicode/utf8"
 )
 
@@ -13,7 +14,7 @@ func validateLength(snils string) error {
 	return nil
 }
 
-func validateContent(snils string) error {
+func validateDigitsOnly(snils string) error {
 	runes := []rune(snils)
 
 	for _, r := range runes {
