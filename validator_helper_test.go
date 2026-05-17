@@ -157,3 +157,85 @@ func Test_shouldValidateChecksum(t *testing.T) {
 		})
 	}
 }
+
+func Test_validateChecksum(t *testing.T) {
+	type args struct {
+		snils string
+	}
+	tests := []struct {
+		name    string
+		args    args
+		wantErr bool
+	}{
+		{
+			name: "СНИЛС из примера ПФ - верный",
+			args: args{
+				snils: "11223344595",
+			},
+			wantErr: false,
+		},
+		{
+			name: "СНИЛС из примера ПФ - неверный",
+			args: args{
+				snils: "11223344594",
+			},
+			wantErr: true,
+		},
+		{
+			name: "контрольное число 99, контрольная сумма 99",
+			args: args{
+				snils: "00101989999",
+			},
+			wantErr: false,
+		},
+		{
+			name: "контрольное число 00, контрольная сумма 100",
+			args: args{
+				snils: "00101998900",
+			},
+			wantErr: false,
+		},
+		{
+			name: "контрольное число 00, контрольная сумма 101",
+			args: args{
+				snils: "00101999800",
+			},
+			wantErr: false,
+		},
+		{
+			name: "контрольное число 01, контрольная сумма 102",
+			args: args{
+				snils: "00101999901",
+			},
+			wantErr: false,
+		},
+		{
+			name: "контрольное число 64, контрольная сумма 165",
+			args: args{
+				snils: "12345678964",
+			},
+			wantErr: false,
+		},
+		{
+			name: "контрольное число 65, контрольная сумма 165",
+			args: args{
+				snils: "12345678965",
+			},
+			wantErr: true,
+		},
+		{
+			name: "контрольное число 44, контрольная сумма 142",
+			args: args{
+				snils: "90114404442",
+			},
+			wantErr: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if err := validateChecksum(tt.args.snils); (err != nil) != tt.wantErr {
+				t.Errorf("validateChecksum() error = %v, wantErr %v", err, tt.wantErr)
+			}
+		})
+	}
+}
