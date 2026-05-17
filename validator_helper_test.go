@@ -45,7 +45,7 @@ func Test_validateLength(t *testing.T) {
 	}
 }
 
-func Test_validateContent(t *testing.T) {
+func Test_validateDigitsOnly(t *testing.T) {
 	type args struct {
 		snils string
 	}
@@ -78,8 +78,41 @@ func Test_validateContent(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := validateContent(tt.args.snils); (err != nil) != tt.wantErr {
-				t.Errorf("validateContent() error = %v, wantErr %v", err, tt.wantErr)
+			if err := validateDigitsOnly(tt.args.snils); (err != nil) != tt.wantErr {
+				t.Errorf("validateDigitsOnly() error = %v, wantErr %v", err, tt.wantErr)
+			}
+		})
+	}
+}
+
+func Test_validateForbiddenSNILS(t *testing.T) {
+	type args struct {
+		snils string
+	}
+	tests := []struct {
+		name    string
+		args    args
+		wantErr bool
+	}{
+		{
+			name: "запрещенный снилс",
+			args: args{
+				snils: ForbiddenSNILS,
+			},
+			wantErr: true,
+		},
+		{
+			name: "незапрещенный снилс",
+			args: args{
+				snils: strings.Repeat("1", 11),
+			},
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if err := validateForbiddenSNILS(tt.args.snils); (err != nil) != tt.wantErr {
+				t.Errorf("validateForbiddenSNILS() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
 	}
