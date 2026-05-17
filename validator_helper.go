@@ -6,6 +6,9 @@ import (
 	"unicode/utf8"
 )
 
+// validateLength проверяет, что длина СНИЛС соответствует SNILSLength.
+//
+// Возвращает ErrInvalidLength, если длина отличается от ожидаемой.
 func validateLength(snils string) error {
 	rc := utf8.RuneCountInString(snils)
 
@@ -16,6 +19,9 @@ func validateLength(snils string) error {
 	return nil
 }
 
+// validateDigitsOnly проверяет, что СНИЛС содержит только десятичные цифры.
+//
+// Возвращает ErrInvalidContent, если встречается символ, отличный от '0'–'9'.
 func validateDigitsOnly(snils string) error {
 	runes := []rune(snils)
 
@@ -30,6 +36,9 @@ func validateDigitsOnly(snils string) error {
 	return nil
 }
 
+// validateForbiddenSNILS проверяет, что СНИЛС не равен запрещенному значению.
+//
+// Возвращает ErrForbiddenSNILS, если значение совпадает с ForbiddenSNILS.
 func validateForbiddenSNILS(snils string) error {
 	if snils == ForbiddenSNILS {
 		return fmt.Errorf("%w", ErrForbiddenSNILS)
@@ -38,6 +47,10 @@ func validateForbiddenSNILS(snils string) error {
 	return nil
 }
 
+// shouldValidateChecksum определяет, требуется ли проверка контрольного числа.
+//
+// Проверка выполняется только для СНИЛС, числовая часть которых больше
+// MinNumberForChecksum.
 func shouldValidateChecksum(snils string) bool {
 	numberPart := snils[:9]
 	number, err := strconv.Atoi(numberPart)
@@ -53,6 +66,10 @@ func shouldValidateChecksum(snils string) bool {
 	return false
 }
 
+// validateChecksum проверяет корректность контрольного числа СНИЛС.
+//
+// Возвращает ErrInvalidChecksum, если фактическое контрольное число
+// не совпадает с вычисленным.
 func validateChecksum(snils string) error {
 	numberPart := snils[:9]
 	controlPart := snils[9:]
