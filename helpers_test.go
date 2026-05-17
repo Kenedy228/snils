@@ -14,7 +14,7 @@ func Test_isDelimiter(t *testing.T) {
 		{
 			name: "разделитель",
 			args: args{
-				r: delimiters[0],
+				r: '-',
 			},
 			want: true,
 		},
